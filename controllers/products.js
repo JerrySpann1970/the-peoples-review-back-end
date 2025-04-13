@@ -125,4 +125,25 @@ router.put("/:productId/reviews/:reviewId", verifyToken, async (req, res) => {
     }
 });
 
+// DELETE /products/:productId/reviews/:reviewId
+router.delete("/:productId/reviews/:reviewId", verifyToken, async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.productId);
+        const review = product.reviewss.id(req.params.reviewId);
+
+        // ensures the current user is the author of the review
+        if (review.author.toString() !== req.user._id) {
+            return res
+                .status(403)
+                .json({ message: "You are not authorized to edit this review" });
+        }
+
+        product.reviews.remove({ _id: req.params.reviewId });
+        await product.save();
+        res.status(200).json({ message: "Review deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ err: err.message });
+    }
+});
+
 module.export = router;
