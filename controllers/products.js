@@ -129,7 +129,7 @@ router.put("/:productId/reviews/:reviewId", verifyToken, async (req, res) => {
 router.delete("/:productId/reviews/:reviewId", verifyToken, async (req, res) => {
     try {
         const product = await Product.findById(req.params.productId);
-        const review = product.reviewss.id(req.params.reviewId);
+        const review = product.reviews.id(req.params.reviewId);
 
         // ensures the current user is the author of the review
         if (review.author.toString() !== req.user._id) {
@@ -146,4 +146,4 @@ router.delete("/:productId/reviews/:reviewId", verifyToken, async (req, res) => 
     }
 });
 
-module.export = router;
+module.exports = router;
