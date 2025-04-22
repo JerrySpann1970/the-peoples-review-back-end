@@ -1,4 +1,4 @@
-### The Peoples Review Backend
+# The Peoples Review Backend
 
 The Peoples Review is a full-stack web application that allows users to post and make reviews on items they purchase from any website.
 
